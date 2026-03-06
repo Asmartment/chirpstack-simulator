@@ -1,0 +1,146 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: device-simulator
+  namespace: iot-chirpstack-qa
+  labels:
+    app: device-simulator
+    app.kubernetes.io/instance: devicesimulator
+    istio-injection: disabled
+    job-name: device-simulator
+spec:
+  backoffLimit: 1
+  template:
+    metadata:
+      labels:
+        app: device-simulator
+        app.kubernetes.io/instance: devicesimulator
+        istio-injection: disabled
+        job-name: device-simulator
+        sidecar.istio.io/inject: 'false'
+    spec:
+      volumes:
+        - name: cert-volume
+          projected:
+            sources:
+              - secret:
+                  name: core-root-ca
+                  items:
+                    - key: AmazonRootCA1.pem
+                      path: AmazonRootCA1.pem
+                      mode: 438
+                  optional: false
+              - secret:
+                  name: core-certificate-crt
+                  items:
+                    - key: certificate.pem.crt
+                      path: certificate.pem.crt
+                      mode: 438
+                  optional: false
+              - secret:
+                  name: core-private-key
+                  items:
+                    - key: private.pem.key
+                      path: private.pem.key
+                      mode: 438
+                  optional: false
+            defaultMode: 420
+        - name: config-volume
+          configMap:
+            name: device-simulator-config
+            defaultMode: 420
+            optional: false
+      containers:
+        - name: device-simulator
+          image: 273056594042.dkr.ecr.us-east-1.amazonaws.com/chirpstack/simulator:latest
+          command:
+            - /usr/local/bin/chirpstack-simulator
+          args:
+            - '-c'
+            - /chirpstack-simulator.toml
+          resources: {}
+          volumeMounts:
+            - name: config-volume
+              mountPath: /chirpstack-simulator.toml
+              subPath: chirpstack-simulator.toml
+              mountPropagation: None
+            - name: cert-volume
+              mountPath: /etc/chirpstack/certs
+              mountPropagation: None
+          imagePullPolicy: Always
+      restartPolicy: Never
+      serviceAccountName: quext-chirpstack
+      serviceAccount: quext-chirpstack
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: product
+                    operator: In
+                    values:
+                      - chirpstack
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                labelSelector:
+                  matchExpressions:
+                    - key: app.kubernetes.io/instance
+                      operator: In
+                      values:
+                        - devicesimulator
+                topologyKey: kubernetes.io/hostname
+      tolerations:
+        - key: product
+          operator: Equal
+          value: chirpstack
+          effect: NoSchedule
+      enableServiceLinks: true
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: device-simulator-config
+data:
+  chirpstack-simulator.toml: >+
+    [general]
+      log_level=4
+    [application_server]
+      [application_server.api]
+        jwt_token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfa2V5X2lkIjoiZTlkNGQxMjAtM2FhMS00NzRmLTgxYzEtOWMwMzMzNDFiYjNlIiwiYXVkIjoiYXMiLCJpc3MiOiJhcyIsIm5iZiI6MTYxNTg4ODE4Nywic3ViIjoiYXBpX2tleSJ9.oK30TYLM3uG2R_nAsfDOJ0anQWIAMTuNdqUMA7yodIo"
+        server="quext-chirpstack-applicationserver.iot-chirpstack-qa:8080"
+        insecure=true
+        [application_server.integration.mqtt]
+        server="tcp://quext-chirpstack-mosquitto.iot-chirpstack-qa:1883"
+        username=""
+        password=""
+      [application_server.gateway.backend.mqtt]
+        server="tcp://quext-chirpstack-mosquitto.iot-chirpstack-qa:1883"
+        username=""
+        password=""
+    [network_server]
+      [network_server.gateway.backend.mqtt]
+      server="tcp://quext-chirpstack-mosquitto.iot-chirpstack-qa:1883"
+      username=""
+      password=""
+    [[simulator]]
+    service_profile_id="9fd0c813-5ada-4cb6-983b-788a061c53cc"
+    tenant_id="1f32476e-a112-4f00-bcc7-4aab4bfefa1d"
+    duration="30m"
+    activation_time="15s"
+      [simulator.device]
+       count=1
+       uplink_interval="30s"
+       payload="68690A"
+       f_port=182
+       frequency=902300000
+       bandwidth=125000
+       spreading_factor=7
+       [simulator.gateway]
+       min_count=1
+       event_topic_template="gateway/{{ .GatewayID }}/event/{{ .Event }}"
+       command_topic_template="gateway/{{ .GatewayID }}/command/{{ .Command }}"
+       max_count=1
+    [prometheus]
+    bind="0.0.0.0:9000"

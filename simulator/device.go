@@ -12,8 +12,8 @@ import (
 	"github.com/pkg/errors"
 	log "github.com/sirupsen/logrus"
 
+	"github.com/brocaar/chirpstack-api/go/v3/gw"
 	"github.com/brocaar/lorawan"
-	"github.com/chirpstack/chirpstack/api/go/v4/gw"
 )
 
 // DeviceOption is the interface for a device option.
@@ -96,7 +96,7 @@ type Device struct {
 	randomDevNonce bool
 
 	// TXInfo for uplink
-	uplinkTXInfo gw.UplinkTxInfo
+	uplinkTXInfo gw.UplinkTXInfo
 
 	// Downlink handler function.
 	downlinkHandlerFunc func(confirmed, ack bool, fCntDown uint32, fPort uint8, data []byte) error
@@ -186,7 +186,7 @@ func WithRandomDevNonce() DeviceOption {
 }
 
 // WithUplinkTXInfo sets the TXInfo used for simulating the uplinks.
-func WithUplinkTXInfo(txInfo gw.UplinkTxInfo) DeviceOption {
+func WithUplinkTXInfo(txInfo gw.UplinkTXInfo) DeviceOption {
 	return func(d *Device) error {
 		d.uplinkTXInfo = txInfo
 		return nil
@@ -225,7 +225,6 @@ func NewDevice(ctx context.Context, wg *sync.WaitGroup, opts ...DeviceOption) (*
 	}).Info("simulator: new otaa device")
 
 	wg.Add(2)
-
 	go d.uplinkLoop()
 	go d.downlinkLoop()
 
@@ -247,11 +246,16 @@ func (d *Device) uplinkLoop() {
 	time.Sleep(d.otaaDelay)
 
 	for !cancelled {
-		switch d.getState() {
+		state := d.getState()
+		log.Infof("Device %s: state=%s, fCntUp=%d", d.devEUI, state, d.fCntUp)
+
+		switch state {
 		case deviceStateOTAA:
+			log.Infof("Device %s: Sending join request", d.devEUI)
 			d.joinRequest()
 			time.Sleep(6 * time.Second)
 		case deviceStateActivated:
+			log.Infof("Device %s: Sending uplink data", d.devEUI)
 			d.dataUp()
 
 			if d.uplinkCount != 0 {
@@ -261,15 +265,17 @@ func (d *Device) uplinkLoop() {
 					// response (e.g. and ack).
 					time.Sleep(time.Second)
 					d.cancel()
+					log.Infof("Device %s: Uplink loop completed", d.devEUI)
 					return
 				}
 			}
 
 			time.Sleep(d.uplinkInterval)
+		default:
+			log.Errorf("Device %s: Unknown state: %s", d.devEUI, state)
 		}
 	}
 }
-
 // downlinkLoop handles the downlink messages.
 // Note: as a gateway does not know the addressee of the downlink, it is up to
 // the handling functions to validate the MIC etc..
@@ -283,29 +289,25 @@ func (d *Device) downlinkLoop() {
 			return
 
 		case pl := <-d.downlinkFrames:
-			for _, item := range pl.Items {
-				err := func() error {
-					var phy lorawan.PHYPayload
+			err := func() error {
+				var phy lorawan.PHYPayload
 
-					if err := phy.UnmarshalBinary(item.PhyPayload); err != nil {
-						return errors.Wrap(err, "unmarshal phypayload error")
-					}
-
-					switch phy.MHDR.MType {
-					case lorawan.JoinAccept:
-						return d.joinAccept(phy)
-					case lorawan.UnconfirmedDataDown, lorawan.ConfirmedDataDown:
-						return d.downlinkData(phy)
-					}
-
-					return nil
-				}()
-
-				if err != nil {
-					log.WithError(err).Error("simulator: handle downlink frame error")
+				if err := phy.UnmarshalBinary(pl.PhyPayload); err != nil {
+					return errors.Wrap(err, "unmarshal phypayload error")
 				}
 
-				break
+				switch phy.MHDR.MType {
+				case lorawan.JoinAccept:
+					return d.joinAccept(phy)
+				case lorawan.UnconfirmedDataDown, lorawan.ConfirmedDataDown:
+					return d.downlinkData(phy)
+				}
+
+				return nil
+			}()
+
+			if err != nil {
+				log.WithError(err).Error("simulator: handle downlink frame error")
 			}
 		}
 	}
@@ -315,7 +317,7 @@ func (d *Device) downlinkLoop() {
 func (d *Device) joinRequest() {
 	log.WithFields(log.Fields{
 		"dev_eui": d.devEUI,
-	}).Debug("simulator: send OTAA request")
+	}).Info("simulator: sending OTAA join request")
 
 	phy := lorawan.PHYPayload{
 		MHDR: lorawan.MHDR{
@@ -330,11 +332,20 @@ func (d *Device) joinRequest() {
 	}
 
 	if err := phy.SetUplinkJoinMIC(d.appKey); err != nil {
-		log.WithError(err).Error("simulator: set uplink join mic error")
+		log.WithError(err).Error("simulator: set uplink join MIC error")
 		return
 	}
 
+	log.WithFields(log.Fields{
+		"dev_eui": d.devEUI,
+		"mic":     hex.EncodeToString(phy.MIC[:]),
+	}).Debug("simulator: OTAA join request payload")
+
 	d.sendUplink(phy)
+
+	log.WithFields(log.Fields{
+		"dev_eui": d.devEUI,
+	}).Debug("simulator: OTAA join request sent")
 
 	deviceJoinRequestCounter().Inc()
 }
