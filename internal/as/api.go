@@ -11,8 +11,8 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
 
+	"github.com/brocaar/chirpstack-api/go/v3/as/external/api"
 	"github.com/brocaar/chirpstack-simulator/internal/config"
-	"github.com/chirpstack/chirpstack/api/go/v4/api"
 )
 
 var clientConn *grpc.ClientConn
@@ -24,7 +24,7 @@ type jwtCredentials struct {
 
 func (j *jwtCredentials) GetRequestMetadata(ctx context.Context, url ...string) (map[string]string, error) {
 	return map[string]string{
-		"authorization": "Bearer " + j.token,
+		"authorization": j.token,
 	}, nil
 }
 
@@ -34,7 +34,7 @@ func (j *jwtCredentials) RequireTransportSecurity() bool {
 
 // Setup configures the AS API client.
 func Setup(c config.Config) error {
-	conf := c.ChirpStack
+	conf := c.ApplicationServer
 
 	// connect gRPC
 	log.WithFields(log.Fields{
@@ -44,7 +44,7 @@ func Setup(c config.Config) error {
 
 	dialOpts := []grpc.DialOption{
 		grpc.WithBlock(),
-		grpc.WithPerRPCCredentials(&jwtCredentials{token: conf.API.APIKey}),
+		grpc.WithPerRPCCredentials(&jwtCredentials{token: conf.API.JWTToken}),
 	}
 
 	if conf.API.Insecure {
@@ -83,12 +83,16 @@ func Setup(c config.Config) error {
 	return nil
 }
 
-func Tenant() api.TenantServiceClient {
-	return api.NewTenantServiceClient(clientConn)
+func ServiceProfile() api.ServiceProfileServiceClient {
+	return api.NewServiceProfileServiceClient(clientConn)
 }
 
 func Gateway() api.GatewayServiceClient {
 	return api.NewGatewayServiceClient(clientConn)
+}
+
+func NetworkServer() api.NetworkServerServiceClient {
+	return api.NewNetworkServerServiceClient(clientConn)
 }
 
 func DeviceProfile() api.DeviceProfileServiceClient {

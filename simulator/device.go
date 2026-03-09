@@ -225,6 +225,7 @@ func NewDevice(ctx context.Context, wg *sync.WaitGroup, opts ...DeviceOption) (*
 	}).Info("simulator: new otaa device")
 
 	wg.Add(2)
+
 	go d.uplinkLoop()
 	go d.downlinkLoop()
 
@@ -246,16 +247,11 @@ func (d *Device) uplinkLoop() {
 	time.Sleep(d.otaaDelay)
 
 	for !cancelled {
-		state := d.getState()
-		log.Infof("Device %s: state=%s, fCntUp=%d", d.devEUI, state, d.fCntUp)
-
-		switch state {
+		switch d.getState() {
 		case deviceStateOTAA:
-			log.Infof("Device %s: Sending join request", d.devEUI)
 			d.joinRequest()
 			time.Sleep(6 * time.Second)
 		case deviceStateActivated:
-			log.Infof("Device %s: Sending uplink data", d.devEUI)
 			d.dataUp()
 
 			if d.uplinkCount != 0 {
@@ -265,17 +261,15 @@ func (d *Device) uplinkLoop() {
 					// response (e.g. and ack).
 					time.Sleep(time.Second)
 					d.cancel()
-					log.Infof("Device %s: Uplink loop completed", d.devEUI)
 					return
 				}
 			}
 
 			time.Sleep(d.uplinkInterval)
-		default:
-			log.Errorf("Device %s: Unknown state: %s", d.devEUI, state)
 		}
 	}
 }
+
 // downlinkLoop handles the downlink messages.
 // Note: as a gateway does not know the addressee of the downlink, it is up to
 // the handling functions to validate the MIC etc..
@@ -317,7 +311,7 @@ func (d *Device) downlinkLoop() {
 func (d *Device) joinRequest() {
 	log.WithFields(log.Fields{
 		"dev_eui": d.devEUI,
-	}).Info("simulator: sending OTAA join request")
+	}).Debug("simulator: send OTAA request")
 
 	phy := lorawan.PHYPayload{
 		MHDR: lorawan.MHDR{
@@ -332,20 +326,11 @@ func (d *Device) joinRequest() {
 	}
 
 	if err := phy.SetUplinkJoinMIC(d.appKey); err != nil {
-		log.WithError(err).Error("simulator: set uplink join MIC error")
+		log.WithError(err).Error("simulator: set uplink join mic error")
 		return
 	}
 
-	log.WithFields(log.Fields{
-		"dev_eui": d.devEUI,
-		"mic":     hex.EncodeToString(phy.MIC[:]),
-	}).Debug("simulator: OTAA join request payload")
-
 	d.sendUplink(phy)
-
-	log.WithFields(log.Fields{
-		"dev_eui": d.devEUI,
-	}).Debug("simulator: OTAA join request sent")
 
 	deviceJoinRequestCounter().Inc()
 }

@@ -3,6 +3,7 @@ module github.com/brocaar/chirpstack-simulator
 go 1.13
 
 require (
+	github.com/brocaar/chirpstack-api/go/v3 v3.12.5
 	github.com/brocaar/lorawan v0.0.0-20191105091820-9ed596703a6c
 	github.com/chirpstack/chirpstack/api/go/v4 v4.0.0-rc.2
 	github.com/eclipse/paho.mqtt.golang v1.2.0

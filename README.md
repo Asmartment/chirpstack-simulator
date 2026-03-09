@@ -1,7 +1,7 @@
 # ChirpStack Simulator
 
 ChirpStack Simulator is an open-source simulator for the [ChirpStack](https://www.chirpstack.io)
-open-source LoRaWAN<sup>&reg;</sup> Network-Server (v4). It simulates
+open-source LoRaWAN<sup>&reg;</sup> Network-Server stack. It simulates
 a configurable number of devices and gateways, which will be automatically
 created on starting the simulation.
 
@@ -36,8 +36,8 @@ For generating a configuration template, use the following command:
 log_level=4
 
 
-# ChirpStack configuration.
-[chirpstack]
+# Application Server configuration.
+[application_server]
 
   # API configuration.
   #
@@ -46,18 +46,20 @@ log_level=4
   #   * Gateways
   #   * Application
   #   * Devices
-  [chirpstack.api]
+  [application_server.api]
 
   # JWT token.
   #
-  # API key to connect to the ChirpStack API. This API key can created within
-  # the ChirpStack web-interface.
-  api_key="PUT_YOUR_API_KEY_HERE"
+  # The JWT token to connect to the ChirpStack Application Server API. This
+  # token can be generated using the login API endpoint. In the near-future
+  # it will be possible to generate these tokens within the web-interface:
+  # https://github.com/brocaar/chirpstack-application-server/pull/421
+  jwt_token="PUT_YOUR_JWT_TOKEN_HERE"
 
   # Server.
   #
-  # This must point to the API interface of ChirpStack.
-  # If the server is running on the same machine, keep this to the
+  # This must point to the external API server of the ChirpStack Application
+  # Server. When the server is running on the same machine, keep this to the
   # default value.
   server="127.0.0.1:8080"
 
@@ -70,8 +72,8 @@ log_level=4
   # MQTT integration configuration.
   #
   # This integration is used for counting the number of uplinks that are
-  # published by the ChirpStack MQTT integration.
-  [chirpstack.integration.mqtt]
+  # published by the ChirpStack Application Server integration.
+  [application_server.integration.mqtt]
 
   # MQTT server.
   server="tcp://127.0.0.1:1883"
@@ -83,8 +85,14 @@ log_level=4
   password=""
 
 
+# Network Server configuration.
+#
+# This configuration is used to simulate LoRa gateways using the MQTT gateway
+# backend.
+[network_server]
+
   # MQTT gateway backend.
-  [chirpstack.gateway.backend.mqtt]
+  [network_server.gateway.backend.mqtt]
 
   # MQTT server.
   server="tcp://127.0.0.1:1883"
@@ -99,10 +107,11 @@ log_level=4
 # Simulator configuration.
 [[simulator]]
 
-# Tenant ID.
+# Service-profile ID.
 #
-# It is recommended to create a new tenant for simulations.
-tenant_id="PUT_YOUR_TENANT_ID_HERE"
+# It is recommended to create a new organization with a new service-profile
+# in the ChirpStack Application Server.
+service_profile_id="PUT_YOUR_SERVICE_PROFILE_ID_HERE"
 
 # Duration.
 #
@@ -150,10 +159,10 @@ activation_time="1m"
   max_count=5
 
   # Event topic template.
-  event_topic_template="eu868/gateway/{{ .GatewayID }}/event/{{ .Event }}"
+  event_topic_template="gateway/{{ .GatewayID }}/event/{{ .Event }}"
 
   # Command topic template.
-  command_topic_template="eu868/gateway/{{ .GatewayID }}/command/{{ .Command }}"
+  command_topic_template="gateway/{{ .GatewayID }}/command/{{ .Command }}"
 
 
 # Prometheus metrics configuration.
@@ -164,7 +173,7 @@ activation_time="1m"
 #   * Join-Accepts received
 #   * Uplinks sent (by the devices)
 #   * Uplinks sent (by the gateways)
-#   * Uplinks sent (by the ChirpStack MQTT integration)
+#   * Uplinks sent (by the ChirpStack Application Server MQTT integration)
 [prometheus]
 
 # IP:port to bind the Prometheus endpoint to.

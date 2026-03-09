@@ -163,6 +163,10 @@ func (s *simulation) tearDown() error {
 		return err
 	}
 
+	if err := s.tearDownDeviceProfile(); err != nil {
+		return err
+	}
+
 	if err := s.tearDownGateways(); err != nil {
 		return err
 	}
@@ -312,23 +316,30 @@ func (s *simulation) tearDownGateways() error {
 }
 
 func (s *simulation) setupDeviceProfile() error {
-	log.Info("simulator: setting up device-profile")
+	log.Info("simulator: creating device-profile")
 
-	// Use the existing device profile with the specified ID
-	resp, err := as.DeviceProfile().Get(context.Background(), &api.GetDeviceProfileRequest{
-		Id: "025de52b-f784-427b-abc0-6ca04d767b1a",
+	dpName, _ := uuid.NewV4()
+
+	resp, err := as.DeviceProfile().Create(context.Background(), &api.CreateDeviceProfileRequest{
+		DeviceProfile: &api.DeviceProfile{
+			Name:              dpName.String(),
+			OrganizationId:    s.serviceProfile.OrganizationId,
+			NetworkServerId:   s.serviceProfile.NetworkServerId,
+			MacVersion:        "1.0.3",
+			RegParamsRevision: "B",
+			SupportsJoin:      true,
+		},
 	})
 	if err != nil {
-		return errors.Wrap(err, "get device-profile error")
+		return errors.Wrap(err, "create device-profile error")
 	}
 
-	dpID, err := uuid.FromString(resp.DeviceProfile.Id)
+	dpID, err := uuid.FromString(resp.Id)
 	if err != nil {
 		return err
 	}
 	s.deviceProfileID = dpID
 
-	log.Infof("simulator device-profile: %s", s.deviceProfileID)
 	return nil
 }
 
