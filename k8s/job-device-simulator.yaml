@@ -112,16 +112,16 @@ data:
         server="quext-chirpstack-applicationserver.iot-chirpstack-qa:8080"
         insecure=true
         [application_server.integration.mqtt]
-        server="tcp://quext-chirpstack-mosquitto.iot-chirpstack-qa:1883"
+        server="ssl://a31iyg7mquxjod-ats.iot.us-east-1.amazonaws.com:8883"
         username=""
         password=""
       [application_server.gateway.backend.mqtt]
-        server="tcp://quext-chirpstack-mosquitto.iot-chirpstack-qa:1883"
+        server="ssl://a31iyg7mquxjod-ats.iot.us-east-1.amazonaws.com:8883"
         username=""
         password=""
     [network_server]
       [network_server.gateway.backend.mqtt]
-      server="tcp://quext-chirpstack-mosquitto.iot-chirpstack-qa:1883"
+      server="ssl://a31iyg7mquxjod-ats.iot.us-east-1.amazonaws.com:8883"
       username=""
       password=""
     [[simulator]]
