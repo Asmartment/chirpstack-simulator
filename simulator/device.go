@@ -122,12 +122,12 @@ func WithDevEUI(devEUI lorawan.EUI64) DeviceOption {
 }
 
 // WithJoinEUI sets the JoinEUI.
-func WithJoinEUI(joinEUI lorawan.EUI64) DeviceOption {
-	return func(d *Device) error {
-		d.joinEUI = joinEUI
-		return nil
-	}
-}
+//func WithJoinEUI(joinEUI lorawan.EUI64) DeviceOption {
+//	return func(d *Device) error {
+//		d.joinEUI = joinEUI
+//		return nil
+//	}
+//}
 
 // WithOTAADelay sets the OTAA delay.
 func WithOTAADelay(delay time.Duration) DeviceOption {
@@ -202,6 +202,21 @@ func WithDownlinkHandlerFunc(f func(confirmed, ack bool, fCntDown uint32, fPort 
 }
 
 // NewDevice creates a new device simulation.
+func HexToEUI64(hexStr string) (lorawan.EUI64, error) {
+	var eui lorawan.EUI64
+	b, err := hex.DecodeString(hexStr)
+	if err != nil {
+		return eui, err
+	}
+
+	if len(b) != len(eui) {
+		return eui, fmt.Errorf("invalid length, expected %d bytes", len(eui))
+	}
+
+	copy(eui[:], b)
+	return eui, nil
+}
+
 func NewDevice(ctx context.Context, wg *sync.WaitGroup, opts ...DeviceOption) (*Device, error) {
 	ctx, cancel := context.WithCancel(ctx)
 
@@ -214,6 +229,8 @@ func NewDevice(ctx context.Context, wg *sync.WaitGroup, opts ...DeviceOption) (*
 		state:          deviceStateOTAA,
 	}
 
+	d.joinEUI = lorawan.EUI64{0x70, 0xB3, 0xD5, 0x7E, 0xD0, 0x00, 0xC1, 0x84}
+
 	for _, o := range opts {
 		if err := o(d); err != nil {
 			return nil, err
@@ -225,7 +242,7 @@ func NewDevice(ctx context.Context, wg *sync.WaitGroup, opts ...DeviceOption) (*
 	}).Info("simulator: new otaa device")
 
 	wg.Add(2)
-
+	go d.joinRequest()
 	go d.uplinkLoop()
 	go d.downlinkLoop()
 
@@ -249,9 +266,11 @@ func (d *Device) uplinkLoop() {
 	for !cancelled {
 		switch d.getState() {
 		case deviceStateOTAA:
+			log.Infof("Device %s: Sending join request", d.devEUI)
 			d.joinRequest()
 			time.Sleep(6 * time.Second)
 		case deviceStateActivated:
+			log.Infof("Device %s: Sending uplink data", d.devEUI)
 			d.dataUp()
 
 			if d.uplinkCount != 0 {
@@ -330,7 +349,16 @@ func (d *Device) joinRequest() {
 		return
 	}
 
+	log.WithFields(log.Fields{
+		"dev_eui": d.devEUI,
+		"mic":     hex.EncodeToString(phy.MIC[:]),
+	}).Debug("simulator: OTAA join request payload")
+
 	d.sendUplink(phy)
+
+	log.WithFields(log.Fields{
+		"dev_eui": d.devEUI,
+	}).Debug("simulator: OTAA join request sent")
 
 	deviceJoinRequestCounter().Inc()
 }
