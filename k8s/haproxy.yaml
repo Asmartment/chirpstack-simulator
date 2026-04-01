@@ -1,0 +1,145 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: haproxy-config
+  namespace: iot-chirpstack-qa
+data:
+  haproxy.cfg: |
+    global
+        log stdout format raw local0 debug
+        maxconn 4096
+        user haproxy
+        group haproxy
+
+
+
+    defaults
+        log global
+        mode http
+
+
+    #accept connections from local application
+    frontend mqtt_front
+        bind *:1883
+        mode tcp
+        option tcplog
+        default_backend iot
+
+    backend iot
+        mode tcp
+        server aws_iot a31iyg7mquxjod-ats.iot.us-east-1.amazonaws.com:8883 check ssl verify required ca-file /etc/chirpstack/certs/AmazonRootCA1.pem crt /etc/chirpstack/certs/aws-iot-client.pem 
+        timeout connect 10s
+        timeout server 60s
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: haproxy-mqtt
+  namespace: iot-chirpstack-qa
+  labels:
+    app: haproxy-mqtt
+    app.kubernetes.io/instance: haproxymqtt
+    istio-injection: disabled
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: haproxy-mqtt
+  template:
+    metadata:
+      labels:
+        app: haproxy-mqtt
+    spec:
+      containers:
+      - name: haproxy
+        image: haproxy:2.8
+        ports:
+        - containerPort: 1883
+          name: mqtt-ssl
+        volumeMounts:
+        - name: haproxy-config
+          mountPath: /usr/local/etc/haproxy/haproxy.cfg
+          subPath: haproxy.cfg
+        - name: cert-volume
+          mountPath: /etc/chirpstack/certs
+          mountPropagation: None
+      volumes:
+      - name: haproxy-config
+        configMap:
+          name: haproxy-config
+      - name: cert-volume
+        projected:
+          sources:
+            - secret:
+                name: aws-iot-client
+                items:
+                  - key: aws-iot-client.pem
+                    path: aws-iot-client.pem
+                    mode: 438
+                optional: false
+            - secret:
+                name: core-root-ca
+                items:
+                  - key: AmazonRootCA1.pem
+                    path: AmazonRootCA1.pem
+                    mode: 438
+                optional: false
+            - secret:
+                name: core-certificate-crt
+                items:
+                  - key: certificate.pem.crt
+                    path: certificate.pem.crt
+                    mode: 438
+                optional: false
+            - secret:
+                name: core-private-key
+                items:
+                  - key: private.pem.key
+                    path: private.pem.key
+                    mode: 438
+                optional: false
+          defaultMode: 420
+      serviceAccountName: quext-chirpstack
+      serviceAccount: quext-chirpstack
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: product
+                    operator: In
+                    values:
+                      - chirpstack
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                labelSelector:
+                  matchExpressions:
+                    - key: app.kubernetes.io/instance
+                      operator: In
+                      values:
+                        - devicesimulator
+                topologyKey: kubernetes.io/hostname
+      tolerations:
+        - key: product
+          operator: Equal
+          value: chirpstack
+          effect: NoSchedule
+      enableServiceLinks: true
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: haproxy-mqtt
+  namespace: iot-chirpstack-qa
+spec:
+  selector:
+    app: haproxy-mqtt
+  ports:
+    - name: mqtt-ssl
+      protocol: TCP
+      port: 1883
+      targetPort: 1883
+  type: ClusterIP

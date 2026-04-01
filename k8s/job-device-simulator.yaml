@@ -59,6 +59,15 @@ spec:
             - '-c'
             - /chirpstack-simulator.toml
           resources: {}
+          env:
+          - name: GODEBUG
+            value: "x509ignoreCN=0"
+          - name: SSL_CERT_FILE
+            value: "/etc/chirpstack/certs/certificate.pem.crt"
+          - name: SSL_KEY_FILE
+            value: "/etc/chirpstack/certs/private.pem.key"
+          - name: SSL_CA_FILE
+            value: "/etc/chirpstack/certs/AmazonRootCA1.pem"
           volumeMounts:
             - name: config-volume
               mountPath: /chirpstack-simulator.toml
@@ -112,16 +121,16 @@ data:
         server="quext-chirpstack-applicationserver.iot-chirpstack-qa:8080"
         insecure=true
         [application_server.integration.mqtt]
-        server="ssl://a31iyg7mquxjod-ats.iot.us-east-1.amazonaws.com:8883"
+        server="haproxy-mqtt.iot-chirpstack-qa:1883"
         username=""
         password=""
       [application_server.gateway.backend.mqtt]
-        server="ssl://a31iyg7mquxjod-ats.iot.us-east-1.amazonaws.com:8883"
+        server="haproxy-mqtt.iot-chirpstack-qa:1883"
         username=""
         password=""
     [network_server]
       [network_server.gateway.backend.mqtt]
-      server="ssl://a31iyg7mquxjod-ats.iot.us-east-1.amazonaws.com:8883"
+      server="haproxy-mqtt.iot-chirpstack-qa:1883"
       username=""
       password=""
     [[simulator]]
@@ -132,7 +141,7 @@ data:
       [simulator.device]
        count=1
        uplink_interval="30s"
-       payload="68690A"
+       payload="00D7"
        f_port=182
        frequency=902300000
        bandwidth=125000
