@@ -7,6 +7,7 @@ data:
   haproxy.cfg: |
     global
         log stdout format raw local0 debug
+        tune.ssl.capture-buffer-size 96
         maxconn 4096
         user haproxy
         group haproxy
@@ -15,7 +16,11 @@ data:
 
     defaults
         log global
-        mode http
+        mode tcp
+        log-format "%ci:%cp [%t] %ft %b/%s %Tw/%Tc/%Tt %B %ts %ac/%fc/%bc/%sc/%rc %sq/%bq {%[ssl_fc_err_str]} %[ssl_fc_sni]"
+        timeout connect 10s
+        timeout client 2h
+        timeout server 2h
 
 
     #accept connections from local application
@@ -27,9 +32,8 @@ data:
 
     backend iot
         mode tcp
-        server aws_iot a31iyg7mquxjod-ats.iot.us-east-1.amazonaws.com:8883 check ssl verify required ca-file /etc/chirpstack/certs/AmazonRootCA1.pem crt /etc/chirpstack/certs/aws-iot-client.pem 
-        timeout connect 10s
-        timeout server 60s
+        server aws_iot a31iyg7mquxjod-ats.iot.us-east-1.amazonaws.com:8883 check ssl verify required ca-file /etc/chirpstack/certs/AmazonRootCA1.pem crt /etc/chirpstack/certs/aws-iot-client.pem  sni str(a31iyg7mquxjod-ats.iot.us-east-1.amazonaws.com) alpn x-amzn-mqtt-ca
+        option tcplog
 
 ---
 apiVersion: apps/v1

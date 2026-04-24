@@ -52,7 +52,7 @@ spec:
             optional: false
       containers:
         - name: device-simulator
-          image: 273056594042.dkr.ecr.us-east-1.amazonaws.com/chirpstack/simulator:latest
+          image: 273056594042.dkr.ecr.us-east-1.amazonaws.com/chirpstack/simulator:v3-test
           command:
             - /usr/local/bin/chirpstack-simulator
           args:
@@ -136,12 +136,12 @@ data:
     [[simulator]]
     service_profile_id="9fd0c813-5ada-4cb6-983b-788a061c53cc"
     tenant_id="1f32476e-a112-4f00-bcc7-4aab4bfefa1d"
-    duration="30m"
+    duration="10m"
     activation_time="15s"
       [simulator.device]
        count=1
-       uplink_interval="30s"
-       payload="00D7"
+       uplink_interval="60s"
+       payload="0102030405060708090A0B0C0D0E0F0102030405060708090A0B0C0D0E0F0102030405060708090A0B0C0D0E0F0102030405060708090A0B0C0D0E0F0102030405060708090A0B0C0D0E0F0102030405060708090A0B0C0D0E0F0102030405060708090A0B0C0D0E0F0102030405060708090A0B0C0D0E0F0102030405060708090A0B0C0D0E0F0102030405060708090A0B0C0D0E0F0102030405060708090A0B0C0D0E0F0102030405060708090A0B0C0D0E0F0102030405060708090A0B0C0D0E0F0102030405060708090A0B0C0D0E0F0102030405060708090A0B0C0D0E0F0102030405060708090A0B0C0D0E0F"
        f_port=182
        frequency=902300000
        bandwidth=125000

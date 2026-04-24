@@ -1,0 +1,19 @@
+time="2026-04-20T11:47:44Z" level=info msg="starting ChirpStack Simulator" docs="https://www.chirpstack.io/" version=0bfa8b3
+time="2026-04-20T11:47:44Z" level=info msg="as: connecting api client" insecure=true server="quext-chirpstack-applicationserver.iot-chirpstack-qa:8080"
+time="2026-04-20T11:47:44Z" level=info msg="as: connecting to mqtt broker" server="haproxy-mqtt.iot-chirpstack-qa:1883"
+time="2026-04-20T11:47:44Z" level=info msg="ns: connecting to mqtt broker" server="haproxy-mqtt.iot-chirpstack-qa:1883"
+time="2026-04-20T11:47:44Z" level=info msg="starting Prometheus endpoint server" bind="0.0.0.0:9000"
+time="2026-04-20T11:47:44Z" level=info msg="simulator: starting simulation" i=0
+time="2026-04-20T11:47:44Z" level=info msg="simulation: setting up"
+time="2026-04-20T11:47:44Z" level=info msg="simulator: retrieving service-profile" service_profile_id=9fd0c813-5ada-4cb6-983b-788a061c53cc
+time="2026-04-20T11:47:44Z" level=info msg="simulator: creating gateways"
+time="2026-04-20T11:47:44Z" level=info msg="simulator: creating device-profile"
+time="2026-04-20T11:47:44Z" level=info msg="simulator: init application"
+time="2026-04-20T11:47:44Z" level=info msg="simulator: init devices"
+time="2026-04-20T11:47:44Z" level=info msg="simulator: setting up application integration"
+time="2026-04-20T11:47:44Z" level=info msg="simulator: subscribing to gateway mqtt topic" gateway_id=1bb24568447e5546 topic=gateway/1bb24568447e5546/command/down
+time="2026-04-20T11:47:44Z" level=info msg="simulator: add device to gateway" dev_eui=345680f1408b98b7 gateway_id=1bb24568447e5546
+time="2026-04-20T11:47:44Z" level=info msg="simulator: new otaa device" dev_eui=345680f1408b98b7
+time="2026-04-20T11:47:46Z" level=error msg="simulator: handle downlink frame error" error="unmarshal phypayload error: lorawan: at least 5 bytes needed to decode PHYPayload"
+time="2026-04-20T11:47:52Z" level=error msg="simulator: handle downlink frame error" error="unmarshal phypayload error: lorawan: at least 5 bytes needed to decode PHYPayload"
+time="2026-04-20T11:47:58Z" level=error msg="simulator: handle downlink frame error" error="unmarshal phypayload error: lorawan: at least 5 bytes needed to decode PHYPayload"

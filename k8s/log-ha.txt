@@ -1,0 +1,18 @@
+[NOTICE]   (1) : haproxy version is 2.8.20-ba7f619f3
+[NOTICE]   (1) : path to executable is /usr/local/sbin/haproxy
+[WARNING]  (1) : config : parsing [/usr/local/etc/haproxy/haproxy.cfg:26] : backend 'iot' : 'option tcplog' directive is ignored in backends.
+[WARNING]  (1) : config : missing timeouts for frontend 'mqtt_front'.
+   | While not properly invalid, you will certainly encounter various problems
+   | with such a configuration. To fix this, please ensure that all following
+   | timeouts are set to a non-zero value: 'client', 'connect', 'server'.
+[NOTICE]   (1) : New worker (8) forked
+[NOTICE]   (1) : Loading success.
+[WARNING]  (8) : [haproxy.main()] Failed to drop supplementary groups. Using 'gid'/'group' without 'uid'/'user' is generally useless.
+[WARNING]  (8) : Server iot/aws_iot is DOWN, reason: Layer4 connection problem, info: "Connection refused", check duration: 0ms. 0 active and 0 backup servers left. 0 sessions active, 0 requeued, 0 remaining in queue.
+Server iot/aws_iot is DOWN, reason: Layer4 connection problem, info: "Connection refused", check duration: 0ms. 0 active and 0 backup servers left. 0 sessions active, 0 requeued, 0 remaining in queue.
+[ALERT]    (8) : backend 'iot' has no server available!
+backend iot has no server available!
+Server iot/aws_iot is UP, reason: Layer6 check passed, check duration: 9ms. 1 active and 0 backup servers online. 0 sessions requeued, 0 total in queue.
+[WARNING]  (8) : Server iot/aws_iot is UP, reason: Layer6 check passed, check duration: 9ms. 1 active and 0 backup servers online. 0 sessions requeued, 0 total in queue.
+127.0.0.6:43863 [20/Apr/2026:10:34:29.390] mqtt_front iot/aws_iot 1/10/14124 4 -- 2/2/1/1/0 0/0
+127.0.0.6:39517 [20/Apr/2026:10:34:29.390] mqtt_front iot/aws_iot 1/9/14124 4 -- 1/1/0/0/0 0/0

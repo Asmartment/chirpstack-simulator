@@ -1,0 +1,62 @@
+{
+  "topicFilter": "gateway/1bb24568447e5546/#",
+  "qos": 0,
+  "messages": [
+    {
+      "format": "string",
+      "topic": "gateway/1bb24568447e5546/event/ack",
+      "timestamp": 1776685882343,
+      "payload": "\n\b\u001b�EhD~UF\u0010��\u0002\"\u0010�yC\u0004!(Kh��w�b�h\u001d",
+      "qos": 0
+    },
+    {
+      "format": "string",
+      "topic": "gateway/1bb24568447e5546/command/down",
+      "timestamp": 1776685882311,
+      "payload": "\u0018��\u0002\"\u0010�yC\u0004!(Kh��w�b�h\u001d*J\n! fy���\u0006���;�7��\u0003\u001e�l0��\u0003z�ǜ��\u00011�F\u0012%(�ᡸ\u00030\u001e`\u0001�\u0001\u0004\u0001\u0002\u0003\u0004B\f\b�\u0003\u0010\u0007\u001a\u00034/5 \u0001r\u0004\n\u0002\b\u0005*J\n! fy���\u0006���;�7��\u0003\u001e�l0��\u0003z�ǜ��\u00011�F\u0012%(�ᡸ\u00030\u001e`\u0001�\u0001\u0004\u0001\u0002\u0003\u0004B\f\b�\u0003\u0010\f\u001a\u00034/5 \u0001r\u0004\n\u0002\b\u00062\b\u001b�EhD~UF",
+      "qos": 0
+    },
+    {
+      "format": "string",
+      "topic": "gateway/1bb24568447e5546/event/up",
+      "timestamp": 1776685882310,
+      "payload": "\n\u0017\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000���@��V4%\u0000��KP\u0012\u0011\b����\u0003\u001a\t\b}\u0010\u0007\u001a\u00033/4\u001a.\n\b\u001b�EhD~UF(21\u0000\u0000\u0000\u0000\u0000\u0000\u0016@z\u0004\u0001\u0002\u0003\u0004�\u0001\u0010\u0002�\u001d���KY�s���1PJ",
+      "qos": 0
+    },
+    {
+      "format": "string",
+      "topic": "gateway/1bb24568447e5546/event/ack",
+      "timestamp": 1776685876198,
+      "payload": "\n\b\u001b�EhD~UF\u0010�T\"\u0010�Jzl��G��\u0004�\u0000�?��",
+      "qos": 0
+    },
+    {
+      "format": "string",
+      "topic": "gateway/1bb24568447e5546/command/down",
+      "timestamp": 1776685876174,
+      "payload": "\u0018�T\"\u0010�Jzl��G��\u0004�\u0000�?��*J\n! ȑ��\u0013�woѯ��]\fMhV\u0001\u000e}��yd��o�]�\u0012%(�ᡸ\u00030\u001e`\u0001�\u0001\u0004\u0001\u0002\u0003\u0004B\f\b�\u0003\u0010\u0007\u001a\u00034/5 \u0001r\u0004\n\u0002\b\u0005*J\n! ȑ��\u0013�woѯ��]\fMhV\u0001\u000e}��yd��o�]�\u0012%(�ᡸ\u00030\u001e`\u0001�\u0001\u0004\u0001\u0002\u0003\u0004B\f\b�\u0003\u0010\f\u001a\u00034/5 \u0001r\u0004\n\u0002\b\u00062\b\u001b�EhD~UF",
+      "qos": 0
+    },
+    {
+      "format": "string",
+      "topic": "gateway/1bb24568447e5546/event/up",
+      "timestamp": 1776685875942,
+      "payload": "\n\u0017\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000���@��V4$\u0000\u001c�\u0002�\u0012\u0011\b����\u0003\u001a\t\b}\u0010\u0007\u001a\u00033/4\u001a.\n\b\u001b�EhD~UF(21\u0000\u0000\u0000\u0000\u0000\u0000\u0016@z\u0004\u0001\u0002\u0003\u0004�\u0001\u0010���~�EM��Y�\u001bXmls",
+      "qos": 0
+    },
+    {
+      "format": "string",
+      "topic": "gateway/1bb24568447e5546/event/ack",
+      "timestamp": 1776685870216,
+      "payload": "\n\b\u001b�EhD~UF\u0010��\u0002\"\u0010\u0001\u001dY�M\u001cG����I�4\u0013r",
+      "qos": 0
+    },
+    {
+      "format": "string",
+      "topic": "gateway/1bb24568447e5546/command/down",
+      "timestamp": 1776685870174,
+      "payload": "\u0018��\u0002\"\u0010\u0001\u001dY�M\u001cG����I�4\u0013r*J\n! .�`r����$\u0017`'/\u0004Gv|D��A�\u001c^�i�Ǔ\u0010c�\u0012%(�ᡸ\u00030\u001e`\u0001�\u0001\u0004\u0001\u0002\u0003\u0004B\f\b�\u0003\u0010\u0007\u001a\u00034/5 \u0001r\u0004\n\u0002\b\u0005*J\n! .�`r����$\u0017`'/\u0004Gv|D��A�\u001c^�i�Ǔ\u0010c�\u0012%(�ᡸ\u00030\u001e`\u0001�\u0001\u0004\u0001\u0002\u0003\u0004B\f\b�\u0003\u0010\f\u001a\u00034/5 \u0001r\u0004\n\u0002\b\u00062\b\u001b�EhD~UF",
+      "qos": 0
+    }
+  ]
+}

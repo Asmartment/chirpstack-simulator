@@ -1,0 +1,100 @@
+time="2026-04-20T10:39:40.085092897Z" level=info msg="device updated" ctx_id=b07a4802-2eea-482a-a593-daca236fcd64 dev_eui=09dcaf48d5abaadf
+time="2026-04-20T10:39:40.085206879Z" level=info msg="gateway/mqtt: publishing gateway command" command=down downlink_id=b07a4802-2eea-482a-a593-daca236fcd64 gateway_id=b62b57c60bcb1c39 qos=0 topic=gateway/b62b57c60bcb1c39/command/down
+time="2026-04-20T10:39:40.085928874Z" level=info msg="storage: downlink-frame saved" ctx_id=b07a4802-2eea-482a-a593-daca236fcd64 token=53962
+time="2026-04-20T10:39:40.099774217Z" level=info msg="backend/gateway: downlink tx acknowledgement received" downlink_id=b07a4802-2eea-482a-a593-daca236fcd64 gateway_id=b62b57c60bcb1c39
+time="2026-04-20T10:39:40.101083793Z" level=info msg="sent downlink meta-data to network-controller" ctx_id=b07a4802-2eea-482a-a593-daca236fcd64
+time="2026-04-20T10:39:45.865733303Z" level=info msg="gateway/mqtt: uplink frame received" gateway_id=b62b57c60bcb1c39 uplink_id=c5f69a57-bd38-4d3a-b8f4-b069527151b5
+time="2026-04-20T10:39:51.86726868Z" level=info msg="gateway/mqtt: uplink frame received" gateway_id=b62b57c60bcb1c39 uplink_id=ed35f260-a264-4b59-8dc0-3005bba12dd6
+time="2026-04-20T10:39:52.069805622Z" level=info msg="uplink: frame(s) collected" ctx_id=c56ac3b3-7776-47ba-9bed-ebbe0993d5e2 mtype=JoinRequest uplink_ids="[ed35f260-a264-4b59-8dc0-3005bba12dd6]"
+time="2026-04-20T10:39:52.079094382Z" level=info msg="lorawan/backend: finished backend api call" message_type=JoinReq protocol_version=1.0 receiver_id=0000000000000000 result_code=Success sender_id=515854 transaction_id=2403998401
+time="2026-04-20T10:39:52.079157273Z" level=info msg="sent uplink meta-data to network-controller" ctx_id=c56ac3b3-7776-47ba-9bed-ebbe0993d5e2 dev_eui=09dcaf48d5abaadf
+time="2026-04-20T10:39:52.07994589Z" level=info msg="device-queue flushed" ctx_id=c56ac3b3-7776-47ba-9bed-ebbe0993d5e2 dev_eui=09dcaf48d5abaadf
+time="2026-04-20T10:39:52.080627373Z" level=info msg="device-session saved" ctx_id=c56ac3b3-7776-47ba-9bed-ebbe0993d5e2 dev_addr=c54e97a4 dev_eui=09dcaf48d5abaadf
+time="2026-04-20T10:39:52.083741828Z" level=info msg="device-activation created" ctx_id=c56ac3b3-7776-47ba-9bed-ebbe0993d5e2 dev_eui=09dcaf48d5abaadf id=121026
+time="2026-04-20T10:39:52.085446932Z" level=info msg="device updated" ctx_id=c56ac3b3-7776-47ba-9bed-ebbe0993d5e2 dev_eui=09dcaf48d5abaadf
+time="2026-04-20T10:39:52.085589795Z" level=info msg="gateway/mqtt: publishing gateway command" command=down downlink_id=c56ac3b3-7776-47ba-9bed-ebbe0993d5e2 gateway_id=b62b57c60bcb1c39 qos=0 topic=gateway/b62b57c60bcb1c39/command/down
+time="2026-04-20T10:39:52.086145946Z" level=info msg="storage: downlink-frame saved" ctx_id=c56ac3b3-7776-47ba-9bed-ebbe0993d5e2 token=15907
+time="2026-04-20T10:39:52.104997211Z" level=info msg="backend/gateway: downlink tx acknowledgement received" downlink_id=c56ac3b3-7776-47ba-9bed-ebbe0993d5e2 gateway_id=b62b57c60bcb1c39
+time="2026-04-20T10:39:52.106452901Z" level=info msg="sent downlink meta-data to network-controller" ctx_id=c56ac3b3-7776-47ba-9bed-ebbe0993d5e2
+time="2026-04-20T10:39:57.868940029Z" level=info msg="gateway/mqtt: uplink frame received" gateway_id=b62b57c60bcb1c39 uplink_id=1ad99605-04ca-4f90-bb05-272443ada2cd
+time="2026-04-20T10:39:58.071738418Z" level=info msg="uplink: frame(s) collected" ctx_id=61119c77-f143-4ff9-a282-d40fe62c10c7 mtype=JoinRequest uplink_ids="[1ad99605-04ca-4f90-bb05-272443ada2cd]"
+time="2026-04-20T10:39:58.081176602Z" level=info msg="lorawan/backend: finished backend api call" message_type=JoinReq protocol_version=1.0 receiver_id=0000000000000000 result_code=Success sender_id=515854 transaction_id=2896826494
+time="2026-04-20T10:39:58.081244683Z" level=info msg="sent uplink meta-data to network-controller" ctx_id=61119c77-f143-4ff9-a282-d40fe62c10c7 dev_eui=09dcaf48d5abaadf
+time="2026-04-20T10:39:58.082015529Z" level=info msg="device-queue flushed" ctx_id=61119c77-f143-4ff9-a282-d40fe62c10c7 dev_eui=09dcaf48d5abaadf
+time="2026-04-20T10:39:58.082744674Z" level=info msg="device-session saved" ctx_id=61119c77-f143-4ff9-a282-d40fe62c10c7 dev_addr=c542e111 dev_eui=09dcaf48d5abaadf
+time="2026-04-20T10:39:58.084879268Z" level=info msg="device-activation created" ctx_id=61119c77-f143-4ff9-a282-d40fe62c10c7 dev_eui=09dcaf48d5abaadf id=121027
+time="2026-04-20T10:39:58.086711985Z" level=info msg="device updated" ctx_id=61119c77-f143-4ff9-a282-d40fe62c10c7 dev_eui=09dcaf48d5abaadf
+time="2026-04-20T10:39:58.086846018Z" level=info msg="gateway/mqtt: publishing gateway command" command=down downlink_id=61119c77-f143-4ff9-a282-d40fe62c10c7 gateway_id=b62b57c60bcb1c39 qos=0 topic=gateway/b62b57c60bcb1c39/command/down
+time="2026-04-20T10:39:58.087398769Z" level=info msg="storage: downlink-frame saved" ctx_id=61119c77-f143-4ff9-a282-d40fe62c10c7 token=47936
+time="2026-04-20T10:39:58.10752086Z" level=info msg="backend/gateway: downlink tx acknowledgement received" downlink_id=61119c77-f143-4ff9-a282-d40fe62c10c7 gateway_id=b62b57c60bcb1c39
+time="2026-04-20T10:39:58.108748975Z" level=info msg="sent downlink meta-data to network-controller" ctx_id=61119c77-f143-4ff9-a282-d40fe62c10c7
+time="2026-04-20T10:40:04.006260073Z" level=info msg="gateway/mqtt: uplink frame received" gateway_id=b62b57c60bcb1c39 uplink_id=84627566-d32c-4acc-83b3-9cb063c390fc
+time="2026-04-20T10:40:04.242151708Z" level=info msg="backend/gateway: downlink tx acknowledgement received" downlink_id=e4f9ffd1-f773-44ab-91b2-635a4f3e7414 gateway_id=b62b57c60bcb1c39
+time="2026-04-20T10:40:04.243508026Z" level=info msg="sent downlink meta-data to network-controller" ctx_id=e4f9ffd1-f773-44ab-91b2-635a4f3e7414
+time="2026-04-20T10:40:08.195473179Z" level=info msg="gateway/mqtt: uplink frame received" gateway_id=00800000a0006af2 uplink_id=13443a99-f2f6-4404-866e-c5667d1b6ec3
+time="2026-04-20T10:40:08.627337092Z" level=info msg="finished unary call with code OK" ctx_id=fe92a9a1-89f0-4a3c-8f60-9d9548d5a873 grpc.code=OK grpc.method=GetNextDownlinkFCntForDevEUI grpc.service=ns.NetworkServerService grpc.start_time="2026-04-20T10:40:08Z" grpc.time_ms=1.575 peer.address="127.0.0.6:51015" span.kind=server system=grpc
+time="2026-04-20T10:40:08.633083799Z" level=info msg="device-queue item created" ctx_id=48b90df8-f1d3-47c7-a700-b3e7ffd364b7 dev_eui=aaaaaa0001002f72 f_cnt=1168
+time="2026-04-20T10:40:08.63311007Z" level=info msg="finished unary call with code OK" ctx_id=48b90df8-f1d3-47c7-a700-b3e7ffd364b7 grpc.code=OK grpc.method=CreateDeviceQueueItem grpc.service=ns.NetworkServerService grpc.start_time="2026-04-20T10:40:08Z" grpc.time_ms=3.797 peer.address="127.0.0.6:51015" span.kind=server system=grpc
+time="2026-04-20T10:40:09.869184731Z" level=info msg="gateway/mqtt: uplink frame received" gateway_id=b62b57c60bcb1c39 uplink_id=ec7709a3-d3bd-4a14-a541-53f24e35baba
+time="2026-04-20T10:40:10.071935228Z" level=info msg="uplink: frame(s) collected" ctx_id=1c1bdf39-187d-468f-8f2c-70296666fc31 mtype=JoinRequest uplink_ids="[ec7709a3-d3bd-4a14-a541-53f24e35baba]"
+time="2026-04-20T10:40:10.082122887Z" level=info msg="lorawan/backend: finished backend api call" message_type=JoinReq protocol_version=1.0 receiver_id=0000000000000000 result_code=Success sender_id=515854 transaction_id=513286939
+time="2026-04-20T10:40:10.082198318Z" level=info msg="sent uplink meta-data to network-controller" ctx_id=1c1bdf39-187d-468f-8f2c-70296666fc31 dev_eui=09dcaf48d5abaadf
+time="2026-04-20T10:40:10.082948424Z" level=info msg="device-queue flushed" ctx_id=1c1bdf39-187d-468f-8f2c-70296666fc31 dev_eui=09dcaf48d5abaadf
+time="2026-04-20T10:40:10.083697769Z" level=info msg="device-session saved" ctx_id=1c1bdf39-187d-468f-8f2c-70296666fc31 dev_addr=c5452958 dev_eui=09dcaf48d5abaadf
+time="2026-04-20T10:40:10.085993726Z" level=info msg="device-activation created" ctx_id=1c1bdf39-187d-468f-8f2c-70296666fc31 dev_eui=09dcaf48d5abaadf id=121029
+time="2026-04-20T10:40:10.08813382Z" level=info msg="device updated" ctx_id=1c1bdf39-187d-468f-8f2c-70296666fc31 dev_eui=09dcaf48d5abaadf
+time="2026-04-20T10:40:10.088233712Z" level=info msg="gateway/mqtt: publishing gateway command" command=down downlink_id=1c1bdf39-187d-468f-8f2c-70296666fc31 gateway_id=b62b57c60bcb1c39 qos=0 topic=gateway/b62b57c60bcb1c39/command/down
+time="2026-04-20T10:40:10.088770313Z" level=info msg="storage: downlink-frame saved" ctx_id=1c1bdf39-187d-468f-8f2c-70296666fc31 token=35975
+time="2026-04-20T10:40:10.106155108Z" level=info msg="backend/gateway: downlink tx acknowledgement received" downlink_id=1c1bdf39-187d-468f-8f2c-70296666fc31 gateway_id=b62b57c60bcb1c39
+time="2026-04-20T10:40:10.107507735Z" level=info msg="sent downlink meta-data to network-controller" ctx_id=1c1bdf39-187d-468f-8f2c-70296666fc31
+time="2026-04-20T10:40:11.68061105Z" level=info msg="gateway/mqtt: publishing gateway command" command=down downlink_id=03c26b24-81b9-4992-adc1-d16614781b2f gateway_id=00800000a0006af2 qos=0 topic=gateway/00800000a0006af2/command/down
+time="2026-04-20T10:40:11.681535469Z" level=info msg="device-session saved" ctx_id=03c26b24-81b9-4992-adc1-d16614781b2f dev_addr=c5423876 dev_eui=aaaaaa0001002f72
+time="2026-04-20T10:40:11.681973458Z" level=info msg="storage: downlink-frame saved" ctx_id=03c26b24-81b9-4992-adc1-d16614781b2f token=962
+time="2026-04-20T10:40:11.682882207Z" level=info msg="device-queue item updated" ctx_id=03c26b24-81b9-4992-adc1-d16614781b2f dev_eui=aaaaaa0001002f72 emit_at_time_since_gps_epoch="<nil>" f_cnt=1168 is_pending=false timeout_after="<nil>"
+time="2026-04-20T10:40:11.807277531Z" level=info msg="backend/gateway: downlink tx acknowledgement received" downlink_id=03c26b24-81b9-4992-adc1-d16614781b2f gateway_id=00800000a0006af2
+time="2026-04-20T10:40:11.81016538Z" level=info msg="device-queue deleted" ctx_id=03c26b24-81b9-4992-adc1-d16614781b2f id=2077545
+time="2026-04-20T10:40:11.811024147Z" level=info msg="device-session saved" ctx_id=03c26b24-81b9-4992-adc1-d16614781b2f dev_addr=c5423876 dev_eui=aaaaaa0001002f72
+time="2026-04-20T10:40:11.813789484Z" level=info msg="sent downlink meta-data to network-controller" ctx_id=03c26b24-81b9-4992-adc1-d16614781b2f
+time="2026-04-20T10:40:11.81749692Z" level=info msg="finished client unary call" ctx_id=03c26b24-81b9-4992-adc1-d16614781b2f grpc.code=OK grpc.ctx_id=2903b4cb-d1d7-4c35-aae2-0a730072862e grpc.duration=5.282889ms grpc.method=HandleTxAck grpc.service=as.ApplicationServerService span.kind=client system=grpc
+time="2026-04-20T10:40:11.81752475Z" level=info msg="sent tx ack to application-server" ctx_id=03c26b24-81b9-4992-adc1-d16614781b2f
+time="2026-04-20T10:40:15.870348614Z" level=info msg="gateway/mqtt: uplink frame received" gateway_id=b62b57c60bcb1c39 uplink_id=849c577e-c751-4392-a413-67f43a40a0d6
+time="2026-04-20T10:40:21.88858913Z" level=info msg="gateway/mqtt: uplink frame received" gateway_id=b62b57c60bcb1c39 uplink_id=2d92a809-6ee3-4003-883c-63eed00d2285
+time="2026-04-20T10:40:22.091757796Z" level=info msg="uplink: frame(s) collected" ctx_id=e0e9099d-99cf-4a2e-8400-40c5642f648e mtype=JoinRequest uplink_ids="[2d92a809-6ee3-4003-883c-63eed00d2285]"
+time="2026-04-20T10:40:22.101221989Z" level=info msg="lorawan/backend: finished backend api call" message_type=JoinReq protocol_version=1.0 receiver_id=0000000000000000 result_code=Success sender_id=515854 transaction_id=3901239032
+time="2026-04-20T10:40:22.101319081Z" level=info msg="sent uplink meta-data to network-controller" ctx_id=e0e9099d-99cf-4a2e-8400-40c5642f648e dev_eui=09dcaf48d5abaadf
+time="2026-04-20T10:40:22.102037485Z" level=info msg="device-queue flushed" ctx_id=e0e9099d-99cf-4a2e-8400-40c5642f648e dev_eui=09dcaf48d5abaadf
+time="2026-04-20T10:40:22.10275525Z" level=info msg="device-session saved" ctx_id=e0e9099d-99cf-4a2e-8400-40c5642f648e dev_addr=c546ba49 dev_eui=09dcaf48d5abaadf
+time="2026-04-20T10:40:22.104885224Z" level=info msg="device-activation created" ctx_id=e0e9099d-99cf-4a2e-8400-40c5642f648e dev_eui=09dcaf48d5abaadf id=121031
+time="2026-04-20T10:40:22.106878905Z" level=info msg="device updated" ctx_id=e0e9099d-99cf-4a2e-8400-40c5642f648e dev_eui=09dcaf48d5abaadf
+time="2026-04-20T10:40:22.106966406Z" level=info msg="gateway/mqtt: publishing gateway command" command=down downlink_id=e0e9099d-99cf-4a2e-8400-40c5642f648e gateway_id=b62b57c60bcb1c39 qos=0 topic=gateway/b62b57c60bcb1c39/command/down
+time="2026-04-20T10:40:22.107602239Z" level=info msg="storage: downlink-frame saved" ctx_id=e0e9099d-99cf-4a2e-8400-40c5642f648e token=22209
+time="2026-04-20T10:40:22.127392064Z" level=info msg="backend/gateway: downlink tx acknowledgement received" downlink_id=e0e9099d-99cf-4a2e-8400-40c5642f648e gateway_id=b62b57c60bcb1c39
+time="2026-04-20T10:40:22.12866497Z" level=info msg="sent downlink meta-data to network-controller" ctx_id=e0e9099d-99cf-4a2e-8400-40c5642f648e
+time="2026-04-20T10:40:27.869099036Z" level=info msg="gateway/mqtt: uplink frame received" gateway_id=b62b57c60bcb1c39 uplink_id=50302700-05bb-4f85-a3d6-6c9d0fce6a54
+time="2026-04-20T10:40:28.071884884Z" level=info msg="uplink: frame(s) collected" ctx_id=b03b2591-2b60-4523-a9ab-85552ae605e3 mtype=JoinRequest uplink_ids="[50302700-05bb-4f85-a3d6-6c9d0fce6a54]"
+time="2026-04-20T10:40:28.081486372Z" level=info msg="lorawan/backend: finished backend api call" message_type=JoinReq protocol_version=1.0 receiver_id=0000000000000000 result_code=Success sender_id=515854 transaction_id=1529225028
+time="2026-04-20T10:40:28.081658515Z" level=info msg="sent uplink meta-data to network-controller" ctx_id=b03b2591-2b60-4523-a9ab-85552ae605e3 dev_eui=09dcaf48d5abaadf
+time="2026-04-20T10:40:28.082357439Z" level=info msg="device-queue flushed" ctx_id=b03b2591-2b60-4523-a9ab-85552ae605e3 dev_eui=09dcaf48d5abaadf
+time="2026-04-20T10:40:28.083047834Z" level=info msg="device-session saved" ctx_id=b03b2591-2b60-4523-a9ab-85552ae605e3 dev_addr=c54b08e4 dev_eui=09dcaf48d5abaadf
+time="2026-04-20T10:40:28.08531679Z" level=info msg="device-activation created" ctx_id=b03b2591-2b60-4523-a9ab-85552ae605e3 dev_eui=09dcaf48d5abaadf id=121032
+time="2026-04-20T10:40:28.087256999Z" level=info msg="device updated" ctx_id=b03b2591-2b60-4523-a9ab-85552ae605e3 dev_eui=09dcaf48d5abaadf
+time="2026-04-20T10:40:28.087509695Z" level=info msg="gateway/mqtt: publishing gateway command" command=down downlink_id=b03b2591-2b60-4523-a9ab-85552ae605e3 gateway_id=b62b57c60bcb1c39 qos=0 topic=gateway/b62b57c60bcb1c39/command/down
+time="2026-04-20T10:40:28.088496535Z" level=info msg="storage: downlink-frame saved" ctx_id=b03b2591-2b60-4523-a9ab-85552ae605e3 token=63022
+time="2026-04-20T10:40:28.108529294Z" level=info msg="backend/gateway: downlink tx acknowledgement received" downlink_id=b03b2591-2b60-4523-a9ab-85552ae605e3 gateway_id=b62b57c60bcb1c39
+time="2026-04-20T10:40:28.10979786Z" level=info msg="sent downlink meta-data to network-controller" ctx_id=b03b2591-2b60-4523-a9ab-85552ae605e3
+time="2026-04-20T10:40:33.870456053Z" level=info msg="gateway/mqtt: uplink frame received" gateway_id=b62b57c60bcb1c39 uplink_id=17477b73-c8c8-4355-9a72-fe534efa4feb
+time="2026-04-20T10:40:34.073430014Z" level=info msg="uplink: frame(s) collected" ctx_id=55b013c2-db74-421b-bb18-c0a126068b2a mtype=JoinRequest uplink_ids="[17477b73-c8c8-4355-9a72-fe534efa4feb]"
+time="2026-04-20T10:40:34.083066312Z" level=info msg="lorawan/backend: finished backend api call" message_type=JoinReq protocol_version=1.0 receiver_id=0000000000000000 result_code=Success sender_id=515854 transaction_id=1042042041
+time="2026-04-20T10:40:34.083143524Z" level=info msg="sent uplink meta-data to network-controller" ctx_id=55b013c2-db74-421b-bb18-c0a126068b2a dev_eui=09dcaf48d5abaadf
+time="2026-04-20T10:40:34.084008102Z" level=info msg="device-queue flushed" ctx_id=55b013c2-db74-421b-bb18-c0a126068b2a dev_eui=09dcaf48d5abaadf
+time="2026-04-20T10:40:34.084794768Z" level=info msg="device-session saved" ctx_id=55b013c2-db74-421b-bb18-c0a126068b2a dev_addr=c54cfd1e dev_eui=09dcaf48d5abaadf
+time="2026-04-20T10:40:34.087031853Z" level=info msg="device-activation created" ctx_id=55b013c2-db74-421b-bb18-c0a126068b2a dev_eui=09dcaf48d5abaadf id=121033
+time="2026-04-20T10:40:34.08882235Z" level=info msg="device updated" ctx_id=55b013c2-db74-421b-bb18-c0a126068b2a dev_eui=09dcaf48d5abaadf
+time="2026-04-20T10:40:34.088924652Z" level=info msg="gateway/mqtt: publishing gateway command" command=down downlink_id=55b013c2-db74-421b-bb18-c0a126068b2a gateway_id=b62b57c60bcb1c39 qos=0 topic=gateway/b62b57c60bcb1c39/command/down
+time="2026-04-20T10:40:34.089436772Z" level=info msg="storage: downlink-frame saved" ctx_id=55b013c2-db74-421b-bb18-c0a126068b2a token=50865
+time="2026-04-20T10:40:34.104651593Z" level=info msg="backend/gateway: downlink tx acknowledgement received" downlink_id=55b013c2-db74-421b-bb18-c0a126068b2a gateway_id=b62b57c60bcb1c39
+time="2026-04-20T10:40:34.105921999Z" level=info msg="sent downlink meta-data to network-controller" ctx_id=55b013c2-db74-421b-bb18-c0a126068b2a
+time="2026-04-20T10:40:35.075085572Z" level=info msg="gateway/mqtt: uplink frame received" gateway_id=647fdafffe018ecb uplink_id=f4fa3ff4-d88e-442b-a4bc-7e3347484303
+time="2026-04-20T10:40:35.277587345Z" level=info msg="uplink: frame(s) collected" ctx_id=613e693f-78df-4064-95a1-8b11481f5bf7 mtype=JoinRequest uplink_ids="[f4fa3ff4-d88e-442b-a4bc-7e3347484303]"
+time="2026-04-20T10:40:35.290738844Z" level=info msg="finished client unary call" ctx_id=613e693f-78df-4064-95a1-8b11481f5bf7 grpc.code=OK grpc.ctx_id=ebf7b212-89c2-451a-ad25-691a78a4486b grpc.duration=6.242048ms grpc.method=HandleError grpc.service=as.ApplicationServerService span.kind=client system=grpc
+time="2026-04-20T10:40:35.290785475Z" level=error msg="uplink: processing uplink frame error" ctx_id=613e693f-78df-4064-95a1-8b11481f5bf7 error="validate dev-nonce error: object already exists"
